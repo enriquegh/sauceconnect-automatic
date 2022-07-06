@@ -11,6 +11,7 @@ public class MySauceConnect {
 
         String options = "-v -i mytunnel";
         try {
+            System.out.println("OS: " + System.getProperty("os.name"));
             String SAUCE_CONNECT_PATH = System.getenv("SAUCE_CONNECT_PATH");
 
             manager.openConnection(SAUCE_USERNAME, SAUCE_ACCESS_KEY, 0, null, options, null, false, SAUCE_CONNECT_PATH);
