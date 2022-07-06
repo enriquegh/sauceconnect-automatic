@@ -11,11 +11,13 @@ public class MySauceConnect {
 
         String options = "-v -i mytunnel";
         try {
-            manager.openConnection(SAUCE_USERNAME, SAUCE_ACCESS_KEY, 0, null, options, null, false, null);
+            String SAUCE_CONNECT_PATH = System.getenv("SAUCE_CONNECT_PATH");
+
+            manager.openConnection(SAUCE_USERNAME, SAUCE_ACCESS_KEY, 0, null, options, null, false, SAUCE_CONNECT_PATH);
             manager.closeTunnelsForPlan(SAUCE_USERNAME, options, null);
             File sauceConnectLogFile = manager.getSauceConnectLogFile(options);
 
-            if (sauceConnectLogFile.exists()) {
+            if (sauceConnectLogFile != null) {
                 System.out.println("Sauce Connect log file: " + sauceConnectLogFile.getAbsolutePath());
             } else {
                 System.out.println("Sauce Connect log file does not exist");
