@@ -1,7 +1,10 @@
 import com.saucelabs.ci.sauceconnect.AbstractSauceTunnelManager;
 import com.saucelabs.ci.sauceconnect.SauceConnectFourManager;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 
 public class MySauceConnect {
     public static void main(String[] args) {
@@ -22,12 +25,16 @@ public class MySauceConnect {
 
             if (sauceConnectLogFile != null) {
                 System.out.println("Sauce Connect log file: " + sauceConnectLogFile.getAbsolutePath());
+                BufferedReader br = Files.newBufferedReader(sauceConnectLogFile.toPath());
+                br.lines().forEach(System.out::println);
             } else {
                 System.out.println("Sauce Connect log file does not exist");
             }
 
 
         } catch (AbstractSauceTunnelManager.SauceConnectException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
             e.printStackTrace();
         }
 //        manager.closeTunnelsForPlan(SAUCE_USERNAME, options, null);
